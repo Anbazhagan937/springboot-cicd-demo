@@ -28,3 +28,9 @@ pipeline {
         }
     }
 }
+stage('Docker Build') {
+    steps {
+        sh 'docker version'
+        sh 'docker build -t springboot-cicd-demo:${BUILD_NUMBER} .'
+    }
+}
