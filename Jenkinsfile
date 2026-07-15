@@ -9,8 +9,18 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn -version'
                 sh 'mvn clean compile'
+            }
+        }
+
+        stage('SonarQube Scan') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=springboot-cicd-demo
+                    '''
+                }
             }
         }
     }
